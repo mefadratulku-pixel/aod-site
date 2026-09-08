@@ -29,8 +29,8 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 bg-[#F9F9F9]/95 backdrop-blur-md border-b border-[#CFC4C5] w-full transition-all">
-      <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-8 h-[97px] flex items-center justify-between relative">
-        {/* Left: Minimal AOD Brand anchor (kept clean as in AOD.svg) */}
+      <div className="w-full max-w-[2100px] mx-auto px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-28 h-[97px] flex items-center justify-between relative">
+        {/* Left: Minimal AOD Brand anchor */}
         <div className="w-[142px] flex items-center">
           <Link
             href="/"
@@ -42,7 +42,7 @@ export default function Navbar() {
         </div>
 
         {/* Centered Navigation Links matching AOD.svg */}
-        <nav className="hidden md:flex items-center justify-center space-x-6 lg:space-x-8 text-[13px] lg:text-[14px] font-bold tracking-wider text-[#0A0A0C]">
+        <nav className="hidden md:flex items-center justify-center space-x-6 lg:space-x-8 xl:space-x-10 text-[13px] lg:text-[14px] font-bold tracking-wider text-[#0A0A0C]">
           {navItems.map((item, index) => (
             <React.Fragment key={item.label}>
               <div className="relative py-1">

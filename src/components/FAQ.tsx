@@ -41,14 +41,14 @@ export default function FAQ() {
   };
 
   return (
-    <section className="py-16 sm:py-24 w-full max-w-[1280px] mx-auto px-4 sm:px-8">
+    <section className="py-16 sm:py-24 w-full max-w-[2100px] mx-auto px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-28">
       {/* Centered Heading matching AOD.svg */}
-      <h2 className="font-heading font-black text-2xl sm:text-3xl md:text-[38px] tracking-tight text-[#0A0A0C] uppercase text-center mb-10 sm:mb-14">
+      <h2 className="font-heading font-black text-2xl sm:text-3xl md:text-4xl tracking-tight text-[#0A0A0C] uppercase text-center mb-10 sm:mb-14">
         FREQUENTLY ASKED QUESTIONS
       </h2>
 
       {/* Accordion List matching AOD.svg exact layout */}
-      <div className="max-w-4xl mx-auto space-y-0">
+      <div className="max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto space-y-0">
         {faqs.map((faq) => {
           const isOpen = openId === faq.id;
           return (
@@ -61,7 +61,7 @@ export default function FAQ() {
                 className="w-full py-5 sm:py-6 flex items-center justify-between text-left focus:outline-none cursor-pointer group"
                 aria-expanded={isOpen}
               >
-                <span className="font-sans font-medium text-base sm:text-lg text-[#0A0A0C] group-hover:text-[#FF0022] transition-colors pr-4">
+                <span className="font-sans font-medium text-base sm:text-lg lg:text-xl text-[#0A0A0C] group-hover:text-[#FF0022] transition-colors pr-4">
                   {faq.question}
                 </span>
                 <span className="shrink-0 text-black">

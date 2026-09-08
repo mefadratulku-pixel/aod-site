@@ -17,7 +17,7 @@ export default function StudentShowcase({
 
   const scroll = (direction: "left" | "right") => {
     if (scrollContainerRef.current) {
-      const scrollAmount = 400;
+      const scrollAmount = 450;
       scrollContainerRef.current.scrollBy({
         left: direction === "left" ? -scrollAmount : scrollAmount,
         behavior: "smooth",
@@ -46,11 +46,11 @@ export default function StudentShowcase({
   return (
     <section
       id="portfolios"
-      className="py-12 sm:py-16 w-full max-w-[1280px] mx-auto px-4 sm:px-8"
+      className="py-12 sm:py-20 w-full max-w-[2100px] mx-auto px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-28"
     >
       {/* Section Header matching AOD.svg */}
-      <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-[#CFC4C5]">
-        <h2 className="font-heading font-black text-2xl sm:text-3xl md:text-[38px] tracking-tight text-[#0A0A0C] uppercase">
+      <div className="flex items-center justify-between pb-4 sm:pb-5 border-b border-[#CFC4C5]">
+        <h2 className="font-heading font-black text-2xl sm:text-3xl md:text-4xl xl:text-[42px] tracking-tight text-[#0A0A0C] uppercase">
           AOD STUDENT DESIGN SHOWCASE
         </h2>
 
@@ -59,16 +59,16 @@ export default function StudentShowcase({
           <button
             onClick={() => scroll("left")}
             aria-label="Previous showcase"
-            className="w-[24.4px] h-[29px] border border-[#7E7576] flex items-center justify-center bg-white hover:bg-black hover:text-white transition-colors cursor-pointer select-none"
+            className="w-[28px] h-[32px] sm:w-[32px] sm:h-[36px] border border-[#7E7576] flex items-center justify-center bg-white hover:bg-black hover:text-white transition-colors cursor-pointer select-none"
           >
-            <ChevronLeft size={16} />
+            <ChevronLeft size={18} />
           </button>
           <button
             onClick={() => scroll("right")}
             aria-label="Next showcase"
-            className="w-[24.4px] h-[29px] border border-[#7E7576] flex items-center justify-center bg-white hover:bg-black hover:text-white transition-colors cursor-pointer select-none"
+            className="w-[28px] h-[32px] sm:w-[32px] sm:h-[36px] border border-[#7E7576] flex items-center justify-center bg-white hover:bg-black hover:text-white transition-colors cursor-pointer select-none"
           >
-            <ChevronRight size={16} />
+            <ChevronRight size={18} />
           </button>
         </div>
       </div>
@@ -76,7 +76,7 @@ export default function StudentShowcase({
       {/* Showcase Cards matching AOD.svg */}
       <div
         ref={scrollContainerRef}
-        className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 pb-2"
+        className="mt-8 sm:mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 xl:gap-10 2xl:gap-12 pb-2"
       >
         {showcaseItems.map((item) => (
           <div
@@ -92,7 +92,7 @@ export default function StudentShowcase({
             />
 
             {/* Student Name Badge at Bottom-Right matching AOD.svg */}
-            <div className="absolute bottom-3 right-3 z-10 bg-white px-3.5 py-1 text-[11px] font-extrabold tracking-wider text-[#0A0A0C] uppercase border border-black/30">
+            <div className="absolute bottom-3.5 right-3.5 z-10 bg-white px-3.5 py-1 text-[11px] sm:text-xs font-extrabold tracking-wider text-[#0A0A0C] uppercase border border-black/30">
               {item.student}
             </div>
           </div>
@@ -100,10 +100,10 @@ export default function StudentShowcase({
       </div>
 
       {/* Action Buttons Below Showcase matching AOD.svg 248x40 & 247x39 dimensions */}
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mt-10 sm:mt-12">
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mt-10 sm:mt-14">
         <button
           onClick={onExplorePortfolios}
-          className="w-[248px] h-[40px] bg-[#000000] text-[#FFFFFF] font-heading font-extrabold text-[13px] tracking-wider uppercase flex items-center justify-center gap-1.5 hover:bg-[#1F1F1F] active:scale-[0.98] transition-all cursor-pointer select-none"
+          className="w-[248px] sm:w-[260px] h-[40px] sm:h-[44px] bg-[#000000] text-[#FFFFFF] font-heading font-extrabold text-[13px] tracking-wider uppercase flex items-center justify-center gap-1.5 hover:bg-[#1F1F1F] active:scale-[0.98] transition-all cursor-pointer select-none"
         >
           <span>EXPLORE ALL PORTFOLIOS</span>
           <span className="text-base leading-none">↗</span>
@@ -111,7 +111,7 @@ export default function StudentShowcase({
 
         <button
           onClick={onReadReviews}
-          className="w-[247px] h-[39px] bg-white border border-black text-[#0A0A0C] font-heading font-extrabold text-[13px] tracking-wider uppercase flex items-center justify-center gap-1.5 hover:bg-black hover:text-white active:scale-[0.98] transition-all cursor-pointer select-none"
+          className="w-[247px] sm:w-[260px] h-[39px] sm:h-[43px] bg-white border border-black text-[#0A0A0C] font-heading font-extrabold text-[13px] tracking-wider uppercase flex items-center justify-center gap-1.5 hover:bg-black hover:text-white active:scale-[0.98] transition-all cursor-pointer select-none"
         >
           <span>READ STUDENT REVIEWS</span>
           <span className="text-base leading-none">↗</span>

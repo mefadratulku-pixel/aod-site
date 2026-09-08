@@ -10,7 +10,7 @@ interface HeroProps {
 
 export default function Hero({ onPreBook, onWatchMasterclass }: HeroProps) {
   return (
-    <section className="pt-8 sm:pt-12 pb-16 sm:pb-20 px-4 text-center w-full max-w-[1280px] mx-auto flex flex-col items-center select-none">
+    <section className="pt-8 sm:pt-12 pb-16 sm:pb-24 px-4 text-center w-full max-w-[2100px] mx-auto flex flex-col items-center select-none">
       {/* Centered Pill Badge matching AOD.svg exact 242.5 x 37.5 dimensions */}
       <div className="inline-flex items-center justify-center w-[242.5px] h-[37.5px] rounded-full border border-black/70 bg-white mb-6 sm:mb-8">
         <span className="text-[12px] font-bold tracking-[0.06em] text-[#0A0A0C] uppercase">
@@ -18,15 +18,15 @@ export default function Hero({ onPreBook, onWatchMasterclass }: HeroProps) {
         </span>
       </div>
 
-      {/* Main Headline matching AOD.svg exact 2-line break */}
-      <h1 className="font-heading font-black text-[32px] sm:text-[46px] md:text-[54px] lg:text-[60px] leading-[1.08] tracking-tight text-[#0A0A0C] uppercase max-w-5xl mx-auto mb-3">
+      {/* Main Headline with fluid clamp scaling */}
+      <h1 className="font-heading font-black text-[clamp(2rem,4.5vw,5.5rem)] leading-[1.08] tracking-tight text-[#0A0A0C] uppercase max-w-6xl 2xl:max-w-7xl mx-auto mb-3">
         CRACK THE VISUAL
         <br />
         <span className="sm:whitespace-nowrap">LOGIC MISSING IN BANGLADESH</span>
       </h1>
 
       {/* Stylized Red Vector Tagline: THIИK. DESIGИ. DOMIИATE. */}
-      <div className="w-full max-w-[min(90vw,620px)] my-2 sm:my-3">
+      <div className="w-full max-w-[min(92vw,740px)] lg:max-w-[820px] xl:max-w-[900px] my-2 sm:my-3">
         <ThinkDesignDominate />
       </div>
 

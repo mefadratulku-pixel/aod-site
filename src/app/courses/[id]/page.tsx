@@ -48,12 +48,12 @@ export default function CourseDetailPage({ params }: PageProps) {
       {/* Top Announcement Bar */}
       <AnnouncementBar />
 
-      {/* Persistent Navbar */}
+      {/* Persistent Sticky Navbar */}
       <Navbar />
 
       {/* Breadcrumb Bar */}
       <div className="border-b border-[#CFC4C5] bg-[#F3F3F3]">
-        <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-8 py-3 flex items-center gap-2 text-xs font-mono uppercase text-black/60">
+        <div className="w-full max-w-[2100px] mx-auto px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-28 py-3 flex items-center gap-2 text-xs font-mono uppercase text-black/60">
           <Link href="/" className="hover:text-black hover:underline">
             HOME
           </Link>
@@ -68,40 +68,40 @@ export default function CourseDetailPage({ params }: PageProps) {
         </div>
       </div>
 
-      {/* Main Course Content Container */}
-      <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-8 py-10 sm:py-14 flex-grow">
+      {/* Main Course Content Container with Fluid Fit-To-Width Scaling */}
+      <div className="w-full max-w-[2100px] mx-auto px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-28 py-10 sm:py-16 flex-grow">
         {/* Course Header Banner */}
-        <div className="pb-8 border-b border-[#CFC4C5]">
-          <div className="inline-block bg-black text-white px-3 py-1 text-[11px] font-black tracking-widest uppercase mb-4 border border-black">
+        <div className="pb-8 sm:pb-10 border-b border-[#CFC4C5]">
+          <div className="inline-block bg-black text-white px-3.5 py-1 text-[11px] sm:text-xs font-black tracking-widest uppercase mb-4 border border-black">
             {course.badge}
           </div>
 
-          <h1 className="font-heading font-black text-2xl sm:text-4xl lg:text-5xl leading-tight uppercase text-[#0A0A0C] max-w-4xl">
+          <h1 className="font-heading font-black text-2xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight uppercase text-[#0A0A0C] max-w-5xl">
             {course.title}
           </h1>
 
-          <p className="text-base sm:text-lg text-[#555] mt-3 max-w-3xl font-medium leading-relaxed">
+          <p className="text-base sm:text-lg xl:text-xl text-[#555] mt-3 sm:mt-4 max-w-4xl font-medium leading-relaxed">
             {course.tagline}
           </p>
 
-          <div className="flex flex-wrap items-center gap-6 mt-6 pt-4 border-t border-black/10 text-xs sm:text-sm font-semibold">
-            <div className="flex items-center gap-1.5 text-black">
+          <div className="flex flex-wrap items-center gap-6 sm:gap-8 mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-black/10 text-xs sm:text-sm font-semibold">
+            <div className="flex items-center gap-2 text-black">
               <span className="text-black/50 uppercase font-mono text-[11px]">INSTRUCTOR:</span>
               <span className="font-bold underline">{course.instructor}</span>
             </div>
 
-            <div className="flex items-center gap-1 text-black">
+            <div className="flex items-center gap-1.5 text-black">
               <Star size={16} className="text-[#FF0022] fill-[#FF0022]" />
               <span className="font-black">{course.rating}</span>
               <span className="text-black/50">({course.reviewsCount} reviews)</span>
             </div>
 
-            <div className="flex items-center gap-1.5 text-black">
+            <div className="flex items-center gap-2 text-black">
               <Users size={16} className="text-black/60" />
               <span>{course.studentsCount} Students Enrolled</span>
             </div>
 
-            <div className="flex items-center gap-1.5 text-black">
+            <div className="flex items-center gap-2 text-black">
               <Clock size={16} className="text-black/60" />
               <span>{course.level}</span>
             </div>
@@ -109,11 +109,11 @@ export default function CourseDetailPage({ params }: PageProps) {
         </div>
 
         {/* Two-Column Grid: Curriculum / Details & Sticky Sidebar */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 mt-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 mt-10 sm:mt-12">
           {/* Left Column: Media, Description, Learnings, Modules */}
-          <div className="lg:col-span-8 space-y-12">
+          <div className="lg:col-span-8 space-y-12 sm:space-y-14">
             {/* High-Resolution Course Poster with 1px border matching AOD.svg */}
-            <div className="border border-black relative w-full aspect-[16/9] sm:aspect-[21/9] bg-black overflow-hidden">
+            <div className="border border-black relative w-full aspect-[16/9] sm:aspect-[21/9] bg-black overflow-hidden shadow-sm">
               <Image
                 src={course.image}
                 alt={course.title}
@@ -128,24 +128,24 @@ export default function CourseDetailPage({ params }: PageProps) {
 
             {/* Course Overview */}
             <div className="space-y-4">
-              <h2 className="font-heading font-black text-xl sm:text-2xl uppercase tracking-tight text-[#0A0A0C] border-b border-black pb-2">
+              <h2 className="font-heading font-black text-xl sm:text-2xl xl:text-3xl uppercase tracking-tight text-[#0A0A0C] border-b border-black pb-2">
                 OVERVIEW & PHILOSOPHY
               </h2>
-              <p className="text-sm sm:text-base text-[#333] leading-relaxed">
+              <p className="text-sm sm:text-base xl:text-lg text-[#333] leading-relaxed">
                 {course.description}
               </p>
             </div>
 
             {/* What You Will Learn */}
             <div className="space-y-4">
-              <h2 className="font-heading font-black text-xl sm:text-2xl uppercase tracking-tight text-[#0A0A0C] border-b border-black pb-2">
+              <h2 className="font-heading font-black text-xl sm:text-2xl xl:text-3xl uppercase tracking-tight text-[#0A0A0C] border-b border-black pb-2">
                 WHAT YOU WILL MASTER
               </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                 {course.learnings.map((learning, idx) => (
                   <div
                     key={idx}
-                    className="flex items-start gap-3 p-3.5 bg-white border border-black shadow-[2px_2px_0px_#000]"
+                    className="flex items-start gap-3.5 p-4 bg-white border border-black shadow-[2px_2px_0px_#000]"
                   >
                     <CheckCircle2
                       size={18}
@@ -162,15 +162,15 @@ export default function CourseDetailPage({ params }: PageProps) {
             {/* Detailed Curriculum Syllabus Accordion */}
             <div className="space-y-4">
               <div className="flex items-center justify-between border-b border-black pb-2">
-                <h2 className="font-heading font-black text-xl sm:text-2xl uppercase tracking-tight text-[#0A0A0C]">
+                <h2 className="font-heading font-black text-xl sm:text-2xl xl:text-3xl uppercase tracking-tight text-[#0A0A0C]">
                   COURSE SYLLABUS & MODULES
                 </h2>
-                <span className="text-xs font-mono font-bold text-black/60 uppercase">
+                <span className="text-xs sm:text-sm font-mono font-bold text-black/60 uppercase">
                   {course.modules.length} MODULES
                 </span>
               </div>
 
-              <div className="space-y-3 pt-2">
+              <div className="space-y-3.5 pt-2">
                 {course.modules.map((mod, index) => {
                   const isOpen = openModuleIndex === index;
                   return (
@@ -182,15 +182,15 @@ export default function CourseDetailPage({ params }: PageProps) {
                         onClick={() => toggleModule(index)}
                         className="w-full p-4 sm:p-5 flex items-center justify-between text-left cursor-pointer hover:bg-[#F9F9F9] transition-colors"
                       >
-                        <div className="flex items-center gap-3">
-                          <span className="w-8 h-8 bg-black text-white font-mono text-xs font-black flex items-center justify-center">
+                        <div className="flex items-center gap-3.5 sm:gap-4">
+                          <span className="w-8 h-8 sm:w-9 sm:h-9 bg-black text-white font-mono text-xs sm:text-sm font-black flex items-center justify-center">
                             {mod.number}
                           </span>
                           <div>
-                            <h3 className="font-heading font-black text-sm sm:text-base uppercase text-[#0A0A0C]">
+                            <h3 className="font-heading font-black text-sm sm:text-base xl:text-lg uppercase text-[#0A0A0C]">
                               {mod.title}
                             </h3>
-                            <span className="text-[11px] font-mono text-black/50">
+                            <span className="text-[11px] sm:text-xs font-mono text-black/50">
                               Duration: {mod.duration} • {mod.lessons.length} Lessons
                             </span>
                           </div>
@@ -203,13 +203,13 @@ export default function CourseDetailPage({ params }: PageProps) {
 
                       {isOpen && (
                         <div className="px-5 pb-5 pt-2 border-t border-black/10 bg-[#FAFAFA]">
-                          <ul className="space-y-2.5">
+                          <ul className="space-y-3">
                             {mod.lessons.map((lesson, lIdx) => (
                               <li
                                 key={lIdx}
-                                className="flex items-center justify-between text-xs sm:text-sm text-[#222] py-1 border-b border-black/5"
+                                className="flex items-center justify-between text-xs sm:text-sm text-[#222] py-1.5 border-b border-black/5"
                               >
-                                <span className="flex items-center gap-2">
+                                <span className="flex items-center gap-2.5">
                                   <span className="text-[#FF0022] font-mono font-bold">
                                     0{lIdx + 1}.
                                   </span>
@@ -229,7 +229,7 @@ export default function CourseDetailPage({ params }: PageProps) {
               </div>
             </div>
 
-            {/* Instructor Box */}
+            {/* Instructor Bio Box */}
             <div className="border border-black p-6 sm:p-8 bg-white shadow-[4px_4px_0px_#000] space-y-4">
               <div className="flex items-center gap-4">
                 <div className="w-16 h-16 bg-black text-white font-black text-xl flex items-center justify-center uppercase border border-black">
@@ -247,7 +247,7 @@ export default function CourseDetailPage({ params }: PageProps) {
                   </p>
                 </div>
               </div>
-              <p className="text-xs sm:text-sm text-[#444] leading-relaxed">
+              <p className="text-xs sm:text-sm xl:text-base text-[#444] leading-relaxed">
                 Fatiqul Ferdush Asif has directed commercial brand campaigns and trained hundreds of visual creatives in Bangladesh to transition from entry-level freelancers into high-earning art directors and commercial designers.
               </p>
             </div>
@@ -255,16 +255,16 @@ export default function CourseDetailPage({ params }: PageProps) {
 
           {/* Right Column: Sticky Enrollment Box */}
           <div className="lg:col-span-4">
-            <div className="sticky top-28 border-2 border-black bg-white p-6 sm:p-7 shadow-[6px_6px_0px_#000] space-y-6">
+            <div className="sticky top-32 border-2 border-black bg-white p-6 sm:p-8 shadow-[6px_6px_0px_#000] space-y-6">
               <div>
                 <span className="text-[10px] font-mono font-black uppercase bg-[#FF0022] text-white px-2.5 py-1 inline-block mb-3">
                   LIMITED SEATS • BATCH 05
                 </span>
                 <div className="flex items-baseline gap-3">
-                  <span className="text-3xl sm:text-4xl font-black text-[#0A0A0C]">
+                  <span className="text-3xl sm:text-4xl xl:text-5xl font-black text-[#0A0A0C]">
                     {course.salePrice}
                   </span>
-                  <span className="text-base sm:text-lg text-[#FF0022] line-through font-bold">
+                  <span className="text-base sm:text-lg xl:text-xl text-[#FF0022] line-through font-bold">
                     {course.originalPrice}
                   </span>
                   <span className="text-xs font-mono font-bold text-green-700 bg-green-100 px-2 py-0.5 border border-green-300">
@@ -276,7 +276,7 @@ export default function CourseDetailPage({ params }: PageProps) {
                 </p>
               </div>
 
-              {/* Huge Solid Red ENROLL NOW Button */}
+              {/* Solid Red ENROLL NOW Button */}
               <button
                 onClick={() => setEnrollModalOpen(true)}
                 className="w-full h-[52px] bg-[#FF0022] text-white font-heading font-black text-sm tracking-wider uppercase flex items-center justify-center gap-2 border border-black shadow-[3px_3px_0px_#000] hover:bg-[#E6001E] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer"
@@ -286,7 +286,7 @@ export default function CourseDetailPage({ params }: PageProps) {
               </button>
 
               {/* Guarantee & Specs */}
-              <div className="space-y-3 pt-4 border-t border-black/10 text-xs font-medium text-[#222]">
+              <div className="space-y-3.5 pt-4 border-t border-black/10 text-xs sm:text-sm font-medium text-[#222]">
                 <div className="flex items-center gap-2.5">
                   <BookOpen size={16} className="text-[#FF0022] shrink-0" />
                   <span>24+ Comprehensive Video Masterclasses</span>
