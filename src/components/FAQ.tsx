@@ -12,8 +12,8 @@ interface FAQItem {
 const faqs: FAQItem[] = [
   {
     id: 1,
-    question: "Will Rajeev Mehta teach the class himself?",
-    answer: "Yes, this course is made up of pre-recorded video lessons by Rajeev Mehta.",
+    question: "Will Fatiqul Ferdush Asif teach the class himself?",
+    answer: "Yes, this course is made up of pre-recorded video lessons and live interactive sessions by Fatiqul Ferdush Asif.",
   },
   {
     id: 2,
