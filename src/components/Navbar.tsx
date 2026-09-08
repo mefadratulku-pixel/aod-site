@@ -26,7 +26,7 @@ interface NavbarProps {
 export default function Navbar({ onWatchMasterclass }: NavbarProps = {}) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("hero");
-  const [pillStyle, setPillStyle] = useState<{ left: number; width: number; opacity: number }>({
+  const [underlineStyle, setUnderlineStyle] = useState<{ left: number; width: number; opacity: number }>({
     left: 0,
     width: 0,
     opacity: 0,
@@ -39,26 +39,42 @@ export default function Navbar({ onWatchMasterclass }: NavbarProps = {}) {
   const navContainerRef = useRef<HTMLDivElement>(null);
   const navItemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
-  // 1. High-precision Real-time Scroll Spy for Section Tracking
+  // 1. High-precision Real-time Scroll Spy for Section Tracking matching AOD.svg
   useEffect(() => {
-    const handleScroll = () => {
-      if (pathname !== "/") return;
+    if (pathname !== "/") return;
 
-      const getSectionTop = (id: string) => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+
+      // When near the top, always highlight FREE MASTERCLASS (hero)
+      if (scrollY < 220) {
+        setActiveSection("hero");
+        return;
+      }
+
+      const getElementCenter = (id: string) => {
         const el = document.getElementById(id);
-        return el ? el.getBoundingClientRect().top + window.scrollY : 0;
+        if (!el) return null;
+        const rect = el.getBoundingClientRect();
+        return {
+          top: rect.top + scrollY,
+          bottom: rect.bottom + scrollY,
+          height: rect.height,
+        };
       };
 
-      const currentY = window.scrollY + 200; // Trigger line 200px below top
-      const coursesTop = getSectionTop("courses");
-      const portfoliosTop = getSectionTop("portfolios");
-      const workshopsTop = getSectionTop("workshops");
+      const heroPos = getElementCenter("hero");
+      const coursesPos = getElementCenter("courses");
+      const portfoliosPos = getElementCenter("portfolios");
+      const workshopsPos = getElementCenter("workshops");
 
-      if (workshopsTop > 0 && currentY >= workshopsTop - 50) {
+      const viewportFocusY = scrollY + 120; // 120px below top of viewport
+
+      if (workshopsPos && viewportFocusY >= workshopsPos.top - 60) {
         setActiveSection("workshops");
-      } else if (portfoliosTop > 0 && currentY >= portfoliosTop - 50) {
+      } else if (portfoliosPos && viewportFocusY >= portfoliosPos.top - 60) {
         setActiveSection("portfolios");
-      } else if (coursesTop > 0 && currentY >= coursesTop - 50) {
+      } else if (coursesPos && viewportFocusY >= coursesPos.top - 60) {
         setActiveSection("courses");
       } else {
         setActiveSection("hero");
@@ -70,14 +86,14 @@ export default function Navbar({ onWatchMasterclass }: NavbarProps = {}) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [pathname]);
 
-  // 2. Liquid-smooth Sliding Pill Position & Width Calculator
+  // 2. Liquid-smooth Sliding Solid Black Underline Calculator matching AOD.svg
   useEffect(() => {
-    const updatePill = () => {
+    const updateUnderline = () => {
       const activeIndex = NAV_ITEMS.findIndex((item) => item.id === activeSection);
       const activeEl = navItemRefs.current[activeIndex];
 
       if (activeEl) {
-        setPillStyle({
+        setUnderlineStyle({
           left: activeEl.offsetLeft,
           width: activeEl.offsetWidth,
           opacity: 1,
@@ -85,13 +101,12 @@ export default function Navbar({ onWatchMasterclass }: NavbarProps = {}) {
       }
     };
 
-    // Run immediately and also after next tick to ensure web fonts render
-    updatePill();
-    const timeout = setTimeout(updatePill, 50);
-    window.addEventListener("resize", updatePill);
+    updateUnderline();
+    const timeout = setTimeout(updateUnderline, 50);
+    window.addEventListener("resize", updateUnderline);
     return () => {
       clearTimeout(timeout);
-      window.removeEventListener("resize", updatePill);
+      window.removeEventListener("resize", updateUnderline);
     };
   }, [activeSection, pathname]);
 
@@ -104,9 +119,17 @@ export default function Navbar({ onWatchMasterclass }: NavbarProps = {}) {
       return;
     }
 
+    if (item.id === "hero") {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+      return;
+    }
+
     const el = document.getElementById(item.id);
     if (el) {
-      const navHeight = 97;
+      const navHeight = 73;
       const targetY = el.getBoundingClientRect().top + window.pageYOffset - navHeight;
       window.scrollTo({
         top: targetY,
@@ -125,34 +148,24 @@ export default function Navbar({ onWatchMasterclass }: NavbarProps = {}) {
 
   return (
     <header className="sticky top-0 z-50 bg-[#F9F9F9]/95 backdrop-blur-md border-b border-[#CFC4C5] w-full transition-all">
-      <div className="w-full max-w-[2100px] mx-auto px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-28 h-[97px] flex items-center justify-between relative">
-        {/* Left: Minimal AOD Brand anchor */}
-        <div className="w-[142px] flex items-center">
+      <div className="w-full max-w-[2100px] mx-auto px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-28 h-[73px] flex items-center justify-between relative">
+        {/* Left: Balanced Anchor matching AOD.svg spacing */}
+        <div className="w-[142px] hidden md:flex items-center">
           <Link
             href="/"
-            className="font-heading font-black text-xl tracking-tighter text-[#0A0A0C] hover:opacity-80 transition-opacity flex items-center"
+            className="font-heading font-black text-xl tracking-tighter text-[#0A0A0C] hover:opacity-80 transition-opacity flex items-center select-none"
           >
             <span>AOD</span>
             <span className="text-[#FF0022] text-2xl leading-none">.</span>
           </Link>
         </div>
 
-        {/* Centered Navigation with Satisfying Animated Sliding Pill */}
+        {/* Center: Minimalist Navigation Links matching AOD.svg exact layout */}
         <nav
           ref={navContainerRef}
           aria-label="Main Navigation"
-          className="relative hidden md:flex items-center justify-center p-1.5 rounded-full border border-black/15 bg-black/[0.03]"
+          className="relative hidden md:flex items-center justify-center py-1"
         >
-          {/* The Satisfying Spring-Animated Sliding Pill */}
-          <div
-            className="absolute top-1.5 bottom-1.5 rounded-full bg-[#0A0A0C] pointer-events-none transition-all duration-350 ease-[cubic-bezier(0.34,1.4,0.64,1)] z-0 shadow-[2px_2px_0px_#FF0022]"
-            style={{
-              transform: `translateX(${pillStyle.left}px)`,
-              width: `${pillStyle.width}px`,
-              opacity: pillStyle.opacity,
-            }}
-          />
-
           {NAV_ITEMS.map((item, index) => {
             const isActive = activeSection === item.id;
             return (
@@ -163,55 +176,76 @@ export default function Navbar({ onWatchMasterclass }: NavbarProps = {}) {
                   }}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item)}
-                  className={`relative z-10 px-4 lg:px-5 py-2 text-xs lg:text-[13px] font-black tracking-wider uppercase transition-colors duration-200 select-none cursor-pointer ${
-                    isActive ? "text-white" : "text-[#0A0A0C] hover:text-[#FF0022]"
+                  className={`relative py-1.5 px-3 lg:px-4 text-[13px] font-heading font-black tracking-wider uppercase transition-colors duration-200 select-none cursor-pointer ${
+                    isActive ? "text-[#000000]" : "text-[#0A0A0C] hover:text-[#FF0022]"
                   }`}
                 >
                   {item.label}
                 </a>
 
+                {/* Slanted Slash Separator matching AOD.svg exact line */}
                 {index < NAV_ITEMS.length - 1 && (
-                  <span className="relative z-10 text-black/20 font-bold px-0.5 select-none pointer-events-none">
+                  <span className="text-black/35 font-light text-base px-1 lg:px-2 select-none pointer-events-none">
                     /
                   </span>
                 )}
               </React.Fragment>
             );
           })}
+
+          {/* Liquid-smooth Sliding Solid Black Underline matching AOD.svg <path d="M475 93V91H325V93V95H475V93Z" fill="black"/> */}
+          <div
+            className="absolute left-0 bottom-0 h-[2px] bg-[#000000] pointer-events-none transition-all duration-350 ease-[cubic-bezier(0.34,1.4,0.64,1)] z-10"
+            style={{
+              transform: `translateX(${underlineStyle.left}px)`,
+              width: `${underlineStyle.width}px`,
+              opacity: underlineStyle.opacity,
+            }}
+          />
         </nav>
 
-        {/* Right Action Button: Red #FF0022 Rectangle with Black DASHBOARD text */}
+        {/* Right: DASHBOARD Red Rectangle matching AOD.svg exact 142x40 transform="translate(1114 60)" fill="#FF0022" */}
         <div className="hidden md:flex items-center justify-end w-[142px]">
           <button
             onClick={handleDashboardClick}
-            className="w-[142px] h-[40px] bg-[#FF0022] text-[#000000] font-heading font-extrabold text-[13px] tracking-wider uppercase flex items-center justify-center hover:bg-[#E6001E] active:scale-[0.98] transition-all cursor-pointer select-none shadow-[2px_2px_0px_#000]"
+            className="w-[142px] h-[40px] bg-[#FF0022] text-[#000000] font-heading font-black text-[13px] tracking-wider uppercase flex items-center justify-center hover:bg-[#E6001E] active:scale-[0.98] transition-all cursor-pointer select-none"
           >
             DASHBOARD
           </button>
         </div>
 
-        {/* Mobile Hamburger Toggle & Button */}
-        <div className="md:hidden flex items-center gap-2">
-          <button
-            onClick={handleDashboardClick}
-            className="px-3.5 h-[36px] bg-[#FF0022] text-[#000000] font-extrabold text-[11px] tracking-wider uppercase cursor-pointer"
+        {/* Mobile View: Logo + Dashboard + Hamburger */}
+        <div className="md:hidden flex items-center justify-between w-full">
+          <Link
+            href="/"
+            className="font-heading font-black text-lg tracking-tighter text-[#0A0A0C] flex items-center"
           >
-            DASHBOARD
-          </button>
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
-            className="p-2 text-[#0A0A0C] border border-[#CFC4C5] bg-white cursor-pointer"
-          >
-            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+            <span>AOD</span>
+            <span className="text-[#FF0022] text-xl leading-none">.</span>
+          </Link>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleDashboardClick}
+              className="px-3.5 h-[36px] bg-[#FF0022] text-[#000000] font-heading font-black text-[11px] tracking-wider uppercase cursor-pointer"
+            >
+              DASHBOARD
+            </button>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+              className="p-2 text-[#0A0A0C] border border-[#CFC4C5] bg-white cursor-pointer"
+            >
+              {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Mobile Drawer with active state */}
+      {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-[#CFC4C5] bg-[#F9F9F9] px-6 py-5 space-y-3">
-          <div className="flex flex-col space-y-2 text-xs font-bold">
+        <div className="md:hidden border-t border-[#CFC4C5] bg-[#F9F9F9] px-6 py-4 space-y-2 animate-fadeIn">
+          <div className="flex flex-col space-y-2 text-xs font-heading font-black uppercase">
             {NAV_ITEMS.map((item) => {
               const isActive = activeSection === item.id;
               return (
@@ -222,26 +256,15 @@ export default function Navbar({ onWatchMasterclass }: NavbarProps = {}) {
                     setMobileMenuOpen(false);
                     handleNavClick(e, item);
                   }}
-                  className={`py-2.5 px-3 border flex items-center justify-between transition-colors ${
-                    isActive
-                      ? "bg-black text-white border-black font-black"
-                      : "bg-white text-[#0A0A0C] border-black/10 hover:text-[#FF0022]"
+                  className={`py-2 border-b border-black/5 flex items-center justify-between ${
+                    isActive ? "text-[#FF0022]" : "text-[#0A0A0C]"
                   }`}
                 >
                   <span>{item.label}</span>
-                  <span>{isActive ? "●" : "↗"}</span>
+                  {isActive && <span className="text-[#FF0022]">●</span>}
                 </a>
               );
             })}
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                handleDashboardClick();
-              }}
-              className="w-full h-[40px] bg-[#FF0022] text-[#000000] font-black text-xs tracking-wider uppercase mt-2 flex items-center justify-center shadow-[2px_2px_0px_#000]"
-            >
-              DASHBOARD
-            </button>
           </div>
         </div>
       )}
