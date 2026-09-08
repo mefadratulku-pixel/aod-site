@@ -1,50 +1,24 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
-import { animate } from "animejs";
+import React from "react";
 
 export default function AnnouncementBar() {
-  const beaconRef = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    if (beaconRef.current) {
-      animate(beaconRef.current, {
-        scale: [1, 2.2],
-        opacity: [0.9, 0],
-        duration: 1400,
-        ease: "outQuad",
-        loop: true,
-      });
-    }
-  }, []);
-
   return (
     <aside
       aria-label="Announcement"
-      className="w-full bg-[#FF0022] text-[#000000] py-2.5 px-4 text-xs sm:text-sm font-bold tracking-wider uppercase select-none border-b border-black/10 relative overflow-hidden"
+      className="w-full bg-[#FF0022] text-[#000000] h-[44px] flex items-center select-none relative z-40 border-b border-black/10"
     >
-      <div className="max-w-[1280px] mx-auto flex items-center justify-between overflow-x-auto no-scrollbar gap-6 whitespace-nowrap">
-        <span className="flex-1 text-center font-black hover:scale-[1.01] transition-transform cursor-pointer">
+      <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-8 flex items-center justify-between text-[11px] sm:text-[13px] md:text-[14px] font-black tracking-wider uppercase">
+        <span className="hidden md:inline-block">
           LEARN THE MISSING INDUSTRY MODULES
         </span>
 
-        <span className="hidden md:inline-block text-black/30 font-light">/</span>
-
-        <span className="flex-1 text-center font-black hover:scale-[1.01] transition-transform cursor-pointer">
+        <span className="hidden sm:inline-block text-center flex-1 md:flex-none">
           WATCH FREE MASTERCLASS NOW
         </span>
 
-        <span className="hidden md:inline-block text-black/30 font-light">/</span>
-
-        <span className="flex-1 text-center font-black hover:scale-[1.01] transition-transform cursor-pointer inline-flex items-center justify-center gap-2">
-          <span className="relative flex h-2.5 w-2.5">
-            <span
-              ref={beaconRef}
-              className="absolute inline-flex h-full w-full rounded-full bg-black opacity-75"
-            />
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-black" />
-          </span>
-          <span>BATCH 05 PRE-BOOKING IS LIVE</span>
+        <span className="text-right sm:text-right w-full sm:w-auto">
+          BATCH 05 PRE-BOOKING IS LIVE
         </span>
       </div>
     </aside>

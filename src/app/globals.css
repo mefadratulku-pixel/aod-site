@@ -22,24 +22,28 @@
   --color-aod-line: #CFC4C5;
 }
 
-html, body, *, *::before, *::after, a, button, input, select, textarea, [role="button"] {
-  cursor: none !important;
+/* Hide default cursor on desktop fine-pointer devices for custom Pen Tool pointer */
+@media (pointer: fine) {
+  html, body, *, *::before, *::after, a, button, input, select, textarea, [role="button"] {
+    cursor: none !important;
+  }
 }
 
 html {
   scroll-behavior: smooth;
   background-color: #F9F9F9;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
 }
 
 body {
   font-family: var(--font-body);
   background-color: #F9F9F9;
-  background-image: 
-    radial-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px),
-    linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
-  background-size: 32px 32px, 128px 128px;
   color: #0A0A0C;
   overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
   margin: 0;
   padding: 0;
 }
@@ -47,72 +51,6 @@ body {
 h1, h2, h3, h4, .font-heading {
   font-family: var(--font-display);
   letter-spacing: -0.02em;
-}
-
-/* Sharp bordered cards */
-.aod-card {
-  border: 1px solid #000000;
-  background-color: #FFFFFF;
-  will-change: transform, box-shadow;
-  transform-style: preserve-3d;
-}
-
-.aod-card:hover {
-  box-shadow: 6px 8px 0px rgba(0, 0, 0, 0.95);
-}
-
-/* Interactive buttons */
-.btn-red {
-  background-color: #FF0022;
-  color: #FFFFFF;
-  font-family: var(--font-display);
-  font-weight: 700;
-  text-transform: uppercase;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.btn-red:hover {
-  background-color: #D9001D;
-  transform: translateY(-1px);
-}
-
-.btn-outline {
-  border: 1px solid #000000;
-  background-color: #FFFFFF;
-  color: #000000;
-  font-family: var(--font-display);
-  font-weight: 700;
-  text-transform: uppercase;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.btn-outline:hover {
-  background-color: #000000;
-  color: #FFFFFF;
-  transform: translateY(-1px);
-}
-
-.btn-black {
-  background-color: #000000;
-  color: #FFFFFF;
-  font-family: var(--font-display);
-  font-weight: 700;
-  text-transform: uppercase;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.btn-black:hover {
-  background-color: #222222;
-  transform: translateY(-1px);
 }
 
 /* Custom scrollbar for horizontal containers */

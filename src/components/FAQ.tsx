@@ -1,147 +1,79 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import { ChevronDown } from "lucide-react";
-import { animate, stagger } from "animejs";
+import React, { useState } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
+
+interface FAQItem {
+  id: number;
+  question: string;
+  answer: string;
+}
+
+const faqs: FAQItem[] = [
+  {
+    id: 1,
+    question: "Will Rajeev Mehta teach the class himself?",
+    answer: "Yes, this course is made up of pre-recorded video lessons by Rajeev Mehta.",
+  },
+  {
+    id: 2,
+    question: "Will I have access to the video once the course is over?",
+    answer: "Yes, you get lifetime access to all course recordings, downloadable PSD files, and resources.",
+  },
+  {
+    id: 3,
+    question: "In which language will the course be taught?",
+    answer: "The course is taught in Bengali, utilizing global industry-standard English terminology for design principles and software tools.",
+  },
+  {
+    id: 4,
+    question: "Facing problems in payment processing?",
+    answer: "If you encounter any payment issues with bKash, Nagad, or cards, click the 'Need Help? WhatsApp Me' button below for immediate manual verification.",
+  },
+];
 
 export default function FAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-  const sectionRef = useRef<HTMLElement>(null);
-  const faqItemsRef = useRef<HTMLDivElement[]>([]);
-  const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const iconRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  // First item open by default matching AOD.svg
+  const [openId, setOpenId] = useState<number | null>(1);
 
-  const faqs = [
-    {
-      question: "Will Rajeev Mehta teach the class himself?",
-      answer:
-        "Yes, this course is made up of pre-recorded video lessons by Rajeev Mehta.",
-    },
-    {
-      question: "Will I have access to the video once the course is over?",
-      answer:
-        "Yes, you will receive lifetime access to all recorded video lessons, project source files, and community updates.",
-    },
-    {
-      question: "In which language will the course be taught?",
-      answer:
-        "The course is conducted in Bengali and Hindi, using international graphic design terminology so you can compete globally.",
-    },
-    {
-      question: "Facing problems in payment processing?",
-      answer:
-        "We support bKash, Nagad, Rocket, and all major debit/credit cards. If you experience any payment gateway issue, click 'Need Help? WhatsApp Me' in the footer for instant support.",
-    },
-  ];
-
-  useEffect(() => {
-    // Staggered reveal of questions when entering viewport
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            animate(faqItemsRef.current, {
-              translateY: [30, 0],
-              opacity: [0, 1],
-              duration: 700,
-              delay: stagger(100),
-              ease: "outCubic",
-            });
-            observer.disconnect();
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  const toggleIndex = (index: number) => {
-    const isCurrentlyOpen = openIndex === index;
-    const nextIndex = isCurrentlyOpen ? null : index;
-    setOpenIndex(nextIndex);
-
-    // Animate the clicked icon
-    const iconEl = iconRefs.current[index];
-    if (iconEl) {
-      animate(iconEl, {
-        rotate: isCurrentlyOpen ? 0 : 180,
-        duration: 350,
-        ease: "outCubic",
-      });
-    }
-
-    // If closing another item, reset its icon
-    if (openIndex !== null && openIndex !== index) {
-      const prevIcon = iconRefs.current[openIndex];
-      if (prevIcon) {
-        animate(prevIcon, {
-          rotate: 0,
-          duration: 300,
-          ease: "outCubic",
-        });
-      }
-    }
+  const toggle = (id: number) => {
+    setOpenId(openId === id ? null : id);
   };
 
   return (
-    <section
-      ref={sectionRef}
-      className="py-16 sm:py-24 max-w-[900px] mx-auto px-4 sm:px-8"
-    >
-      <div className="flex flex-col items-center mb-12 sm:mb-16">
-        <div className="w-8 h-1 bg-[#FF0022] mb-4" />
-        <h2 className="font-heading font-black text-2xl sm:text-4xl md:text-[42px] tracking-tight text-[#0A0A0C] uppercase text-center">
-          FREQUENTLY ASKED QUESTIONS
-        </h2>
-      </div>
+    <section className="py-16 sm:py-24 w-full max-w-[1280px] mx-auto px-4 sm:px-8">
+      {/* Centered Heading matching AOD.svg */}
+      <h2 className="font-heading font-black text-2xl sm:text-3xl md:text-[38px] tracking-tight text-[#0A0A0C] uppercase text-center mb-10 sm:mb-14">
+        FREQUENTLY ASKED QUESTIONS
+      </h2>
 
-      <div className="divide-y divide-black/15 border-y border-black/15">
-        {faqs.map((faq, index) => {
-          const isOpen = openIndex === index;
+      {/* Accordion List matching AOD.svg exact layout */}
+      <div className="max-w-4xl mx-auto space-y-0">
+        {faqs.map((faq) => {
+          const isOpen = openId === faq.id;
           return (
             <div
-              key={faq.question}
-              ref={(el) => {
-                if (el) faqItemsRef.current[index] = el;
-              }}
-              className="py-5 sm:py-6 opacity-0 transition-colors"
+              key={faq.id}
+              className="border-b border-[#CFC4C5] transition-colors"
             >
               <button
-                onClick={() => toggleIndex(index)}
-                className="w-full flex items-center justify-between text-left gap-4 group cursor-pointer"
+                onClick={() => toggle(faq.id)}
+                className="w-full py-5 sm:py-6 flex items-center justify-between text-left focus:outline-none cursor-pointer group"
+                aria-expanded={isOpen}
               >
-                <span className="font-heading font-semibold text-base sm:text-lg md:text-xl text-[#0A0A0C] group-hover:text-[#FF0022] transition-colors">
+                <span className="font-sans font-medium text-base sm:text-lg text-[#0A0A0C] group-hover:text-[#FF0022] transition-colors pr-4">
                   {faq.question}
                 </span>
-                <span
-                  ref={(el) => {
-                    iconRefs.current[index] = el;
-                  }}
-                  className="text-[#0A0A0C] group-hover:text-[#FF0022] transition-colors shrink-0 inline-block transform origin-center"
-                  style={{ transform: isOpen ? "rotate(180deg)" : "rotate(0deg)" }}
-                >
-                  <ChevronDown size={22} />
+                <span className="shrink-0 text-black">
+                  {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
                 </span>
               </button>
 
-              <div
-                ref={(el) => {
-                  contentRefs.current[index] = el;
-                }}
-                className={`overflow-hidden transition-all duration-300 ease-out ${
-                  isOpen ? "max-h-48 opacity-100 mt-3" : "max-h-0 opacity-0"
-                }`}
-              >
-                <p className="text-sm sm:text-base text-[#444] leading-relaxed pr-8">
-                  {faq.answer}
-                </p>
-              </div>
+              {isOpen && (
+                <div className="pb-6 text-sm sm:text-base text-[#555555] font-normal leading-relaxed pr-8">
+                  <p>{faq.answer}</p>
+                </div>
+              )}
             </div>
           );
         })}

@@ -10,14 +10,12 @@ import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import EnrollModal from "@/components/EnrollModal";
 import DashboardModal from "@/components/DashboardModal";
-import PenToolCursor from "@/components/PenToolCursor";
 
 export default function Home() {
   const [enrollModalOpen, setEnrollModalOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState<string>(
     "THE ART OF DESIGN WITH MANIPULATION - VOL 4.0"
   );
-  const [dashboardModalOpen, setDashboardModalOpen] = useState(false);
 
   const handleOpenEnroll = (courseTitle?: string) => {
     if (courseTitle) {
@@ -27,7 +25,6 @@ export default function Home() {
   };
 
   const handleWatchMasterclass = () => {
-    // Scrolls to courses or opens video preview
     const element = document.getElementById("courses");
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
@@ -47,34 +44,31 @@ export default function Home() {
 
   return (
     <main className="min-h-screen flex flex-col bg-[#F9F9F9] text-[#0A0A0C]">
-      {/* Interactive Custom Pen Tool Pointer */}
-      <PenToolCursor />
-
-      {/* Top Announcement Banner */}
+      {/* Top Announcement Banner matching AOD.svg */}
       <AnnouncementBar />
 
-      {/* Main Navigation Header */}
-      <Navbar onOpenDashboard={() => setDashboardModalOpen(true)} />
+      {/* Main Navigation Header matching AOD.svg */}
+      <Navbar />
 
-      {/* Hero Section */}
+      {/* Hero Section matching AOD.svg */}
       <Hero
         onPreBook={() => handleOpenEnroll("THE ART OF DESIGN WITH MANIPULATION - VOL 4.0")}
         onWatchMasterclass={handleWatchMasterclass}
       />
 
-      {/* Industry Modules Course Cards */}
+      {/* Industry Modules Course Cards matching AOD.svg */}
       <IndustryModules onEnroll={handleOpenEnroll} />
 
-      {/* Student Design Showcase Section */}
+      {/* Student Design Showcase Section matching AOD.svg */}
       <StudentShowcase
         onExplorePortfolios={handleExplorePortfolios}
         onReadReviews={handleReadReviews}
       />
 
-      {/* Frequently Asked Questions */}
+      {/* Frequently Asked Questions matching AOD.svg */}
       <FAQ />
 
-      {/* Footer */}
+      {/* Footer matching AOD.svg */}
       <Footer />
 
       {/* Interactive Modals */}
@@ -84,10 +78,7 @@ export default function Home() {
         courseTitle={selectedCourse}
       />
 
-      <DashboardModal
-        isOpen={dashboardModalOpen}
-        onClose={() => setDashboardModalOpen(false)}
-      />
+      <DashboardModal />
     </main>
   );
 }
