@@ -10,9 +10,11 @@ import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import EnrollModal from "@/components/EnrollModal";
 import DashboardModal from "@/components/DashboardModal";
+import MasterclassModal from "@/components/MasterclassModal";
 
 export default function Home() {
   const [enrollModalOpen, setEnrollModalOpen] = useState(false);
+  const [masterclassModalOpen, setMasterclassModalOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState<string>(
     "THE ART OF DESIGN WITH MANIPULATION - VOL 4.0"
   );
@@ -25,10 +27,7 @@ export default function Home() {
   };
 
   const handleWatchMasterclass = () => {
-    const element = document.getElementById("courses");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    setMasterclassModalOpen(true);
   };
 
   const handleExplorePortfolios = () => {
@@ -45,10 +44,10 @@ export default function Home() {
   return (
     <main className="min-h-screen flex flex-col bg-[#F9F9F9] text-[#0A0A0C]">
       {/* Top Announcement Banner matching AOD.svg */}
-      <AnnouncementBar />
+      <AnnouncementBar onWatchMasterclass={handleWatchMasterclass} />
 
       {/* Main Navigation Header matching AOD.svg */}
-      <Navbar />
+      <Navbar onWatchMasterclass={handleWatchMasterclass} />
 
       {/* Hero Section matching AOD.svg */}
       <Hero
@@ -76,6 +75,12 @@ export default function Home() {
         isOpen={enrollModalOpen}
         onClose={() => setEnrollModalOpen(false)}
         courseTitle={selectedCourse}
+      />
+
+      <MasterclassModal
+        isOpen={masterclassModalOpen}
+        onClose={() => setMasterclassModalOpen(false)}
+        onPreBook={() => handleOpenEnroll("THE ART OF DESIGN WITH MANIPULATION - VOL 4.0")}
       />
 
       <DashboardModal />

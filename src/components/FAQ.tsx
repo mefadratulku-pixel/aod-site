@@ -41,7 +41,10 @@ export default function FAQ() {
   };
 
   return (
-    <section className="py-16 sm:py-24 w-full max-w-[2100px] mx-auto px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-28">
+    <section
+      id="workshops"
+      className="py-16 sm:py-24 w-full max-w-[2100px] mx-auto px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-28"
+    >
       {/* Centered Heading matching AOD.svg */}
       <h2 className="font-heading font-black text-2xl sm:text-3xl md:text-4xl tracking-tight text-[#0A0A0C] uppercase text-center mb-10 sm:mb-14">
         FREQUENTLY ASKED QUESTIONS

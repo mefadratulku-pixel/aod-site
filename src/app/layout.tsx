@@ -3,6 +3,7 @@ import { Space_Grotesk, Inter } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import PenToolCursor from "@/components/PenToolCursor";
+import SmoothScroll from "@/components/SmoothScroll";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -38,8 +39,12 @@ export default function RootLayout({
     <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable}`}>
       <body className="bg-[#F9F9F9] text-[#0A0A0C] font-sans antialiased selection:bg-[#FF0022] selection:text-white">
         <AuthProvider>
+          {/* Sitewide Lenis Smooth Scrolling */}
+          <SmoothScroll />
+
           {/* Global Interactive Pen Tool Cursor */}
           <PenToolCursor />
+
           {children}
         </AuthProvider>
       </body>

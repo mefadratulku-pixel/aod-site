@@ -22,15 +22,38 @@
   --color-aod-line: #CFC4C5;
 }
 
-/* Hide default cursor on desktop fine-pointer devices for custom Pen Tool pointer */
+/* Pen Tool Pointer Cursor Rules */
 @media (pointer: fine) {
-  html, body, *, *::before, *::after, a, button, input, select, textarea, [role="button"] {
+  html, body, a, button, [role="button"] {
     cursor: none !important;
+  }
+  input, select, textarea {
+    cursor: text !important;
   }
 }
 
+/* Lenis Recommended Resets */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
 html {
-  scroll-behavior: smooth;
   background-color: #F9F9F9;
   overflow-x: clip;
   max-width: 100vw;
@@ -51,6 +74,43 @@ body {
 h1, h2, h3, h4, .font-heading {
   font-family: var(--font-display);
   letter-spacing: -0.02em;
+}
+
+/* Satisfying Infinite Portfolio Auto-Scroll Animation */
+@keyframes portfolioScroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-portfolio-auto {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: portfolioScroll 38s linear infinite;
+}
+
+.animate-portfolio-auto:hover {
+  animation-play-state: paused;
+}
+
+/* Modal and Element Fade In Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Custom scrollbar for horizontal containers */

@@ -1,17 +1,45 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { MessageSquare } from "lucide-react";
+import { MessageSquare, ShieldCheck, Clock, Sparkles } from "lucide-react";
 
 export default function Footer() {
+  const [timeStr, setTimeStr] = useState<string>("07:55 AM");
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      setTimeStr(
+        now.toLocaleTimeString("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+          timeZone: "Asia/Dhaka",
+        })
+      );
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 30000);
+    return () => clearInterval(interval);
+  }, []);
+
   const handleWhatsApp = () => {
     window.open("https://wa.me/8801700000000", "_blank");
   };
 
   return (
-    <footer className="w-full bg-[#000000] text-white pt-16 sm:pt-24 pb-12 select-none">
-      <div className="w-full max-w-[2100px] mx-auto px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-28">
+    <footer className="w-full bg-[#000000] text-white pt-16 sm:pt-24 pb-12 select-none relative overflow-hidden">
+      {/* Subtle Background Grid Accent */}
+      <div
+        className="absolute inset-0 opacity-5 pointer-events-none"
+        style={{
+          backgroundImage: "radial-gradient(#FFF 1px, transparent 1px)",
+          backgroundSize: "28px 28px",
+        }}
+      />
+
+      <div className="w-full max-w-[2100px] mx-auto px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-28 relative z-10">
         {/* Top Grid matching AOD.svg exact layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 pb-14 sm:pb-20 border-b border-white/15">
           {/* Left Column (Brand + WhatsApp) */}
@@ -23,18 +51,24 @@ export default function Footer() {
             </div>
 
             <p className="text-[#A0A0A0] text-sm sm:text-base lg:text-lg max-w-lg font-normal leading-relaxed">
-              Level up your creative journey with real-world skills from industry professionals.
+              Level up your creative journey with real-world visual logic and commercial manipulation from industry professionals.
             </p>
 
-            {/* WhatsApp Button matching AOD.svg exact 283.23 x 56 dimensions */}
+            {/* WhatsApp Button matching AOD.svg with tactile shadow */}
             <div className="pt-2">
               <button
                 onClick={handleWhatsApp}
-                className="w-[283px] h-[56px] bg-white text-[#000000] rounded-[2px] font-sans font-bold text-sm sm:text-[15px] flex items-center justify-center gap-2.5 hover:bg-gray-100 active:scale-[0.98] transition-all cursor-pointer shadow-md"
+                className="w-[283px] h-[56px] bg-white text-[#000000] rounded-[2px] font-sans font-bold text-sm sm:text-[15px] flex items-center justify-center gap-2.5 hover:bg-gray-100 active:scale-[0.98] transition-all cursor-pointer shadow-[4px_4px_0px_#FF0022] hover:shadow-[6px_6px_0px_#FF0022] hover:-translate-y-0.5 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
               >
                 <MessageSquare size={18} className="text-black fill-black" />
                 <span>Need Help? WhatsApp Me</span>
               </button>
+            </div>
+
+            {/* Guarantee Tag */}
+            <div className="flex items-center gap-2 text-xs font-mono text-white/50 pt-2">
+              <ShieldCheck size={16} className="text-[#FF0022]" />
+              <span>100% SATISFACTION OR FREE BATCH TRANSFER GUARANTEE</span>
             </div>
           </div>
 
@@ -119,10 +153,17 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Credits Row matching AOD.svg */}
+        {/* Bottom Credits Row with Live Dhaka BST Time */}
         <div className="pt-8 sm:pt-10 flex flex-col sm:flex-row items-center justify-between text-xs sm:text-sm text-[#777777] gap-4">
-          <span>Art of Design</span>
-          <span>© 2026 Art of Design. All Rights Reserved.</span>
+          <div className="flex items-center gap-3">
+            <span className="font-black text-white">Art of Design</span>
+            <span>•</span>
+            <div className="flex items-center gap-1.5 font-mono text-[11px] text-white/70">
+              <Clock size={12} className="text-[#FF0022]" />
+              <span>DHAKA [{timeStr} BST // 23.81° N]</span>
+            </div>
+          </div>
+          <span>© 2026 Art of Design. All Rights Reserved. Mentored by Fatiqul Ferdush Asif.</span>
         </div>
       </div>
     </footer>
